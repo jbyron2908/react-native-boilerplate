@@ -1,9 +1,10 @@
 import React from 'react';
 import { Item, Input, Text, Label } from 'native-base';
+import PropTypes from 'prop-types';
 import { WrappedFieldProps } from 'redux-form';
 
 const InputReduxForm = ({
-  input, label, type, meta: { touched, error, warning },
+  input, label, secureTextEntry, meta: { error },
 }) => {
   let hasError = false;
   if (error !== undefined) {
@@ -11,9 +12,9 @@ const InputReduxForm = ({
   }
 
   return (
-    <Item error={hasError}>
+    <Item stackedLabel error={hasError}>
       <Label>{label}</Label>
-      <Input {...input} type={type} />
+      <Input {...input} secureTextEntry={secureTextEntry} />
       {(hasError) ? <Text>{error}</Text> : <Text />}
     </Item>
   );
@@ -21,6 +22,11 @@ const InputReduxForm = ({
 
 InputReduxForm.propTypes = {
   ...WrappedFieldProps,
+  secureTextEntry: PropTypes.bool,
+};
+
+InputReduxForm.defaultProps = {
+  secureTextEntry: false,
 };
 
 export default InputReduxForm;

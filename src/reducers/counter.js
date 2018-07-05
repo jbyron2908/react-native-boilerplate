@@ -1,8 +1,8 @@
 import { fromJS } from 'immutable';
 
 // Actions
-const INCREASE = 'counter/INCREASE';
-const DECREASE = 'counter/DECREASE';
+const INCREASE = 'reducer/counter/INCREASE';
+const DECREASE = 'reducer/counter/DECREASE';
 
 // Reducer
 const initialState = fromJS({
@@ -21,7 +21,6 @@ export default function reducer(state = initialState, action) {
 }
 
 // Action Creators
-
 export function increase() {
   return { type: INCREASE };
 }

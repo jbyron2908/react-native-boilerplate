@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { createStructuredSelector } from 'reselect';
 import InputReduxForm from '../../components/form/InputReduxForm';
-import { getUser } from '../../epics/user';
 
-const Login = ({ submit, onGetUserGraphQLClick }) => (
+const Login = ({ submit }) => (
   <KeyboardAwareScrollView
     enableOnAndroid
     enableAutomaticScroll
@@ -23,25 +21,14 @@ const Login = ({ submit, onGetUserGraphQLClick }) => (
       <Form>
         <Field name="email" component={InputReduxForm} label="Email" />
         <Field name="password" component={InputReduxForm} label="Password" secureTextEntry />
+        <Field name="passwordConfirm" component={InputReduxForm} label="Password Confirm" secureTextEntry />
       </Form>
 
-      <View style={{ marginTop: 10 }} flexDirection="row" justifyContent="center" >
-
-        <Button style={{ marginRight: 25 }} onPress={() => submit()}>
-          <Text>Login</Text>
-        </Button>
-
-        <Button onPress={() => Actions.SignUp()}>
+      <View style={{ marginTop: 10 }} flexDirection="row" justifyContent="space-around" >
+        <Button onPress={() => submit()}>
           <Text>Sign up</Text>
         </Button>
-
       </View>
-
-      <Button onPress={() => onGetUserGraphQLClick()}>
-        <Text>
-          Get user
-        </Text>
-      </Button>
 
     </Content>
   </KeyboardAwareScrollView>
@@ -50,17 +37,14 @@ const Login = ({ submit, onGetUserGraphQLClick }) => (
 
 Login.propTypes = {
   submit: PropTypes.func.isRequired,
-  onGetUserGraphQLClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
 
 });
 
-const mapDispatchToProps = dispatch => ({
-  onGetUserGraphQLClick: () => {
-    dispatch(getUser());
-  },
+const mapDispatchToProps = () => ({
+
 });
 
 const LoginForm = reduxForm({

@@ -5,7 +5,8 @@ import DrawerContent from '../components/drawer/DrawerContent';
 import Home from '../screens/Home';
 import Second from '../screens/Second';
 import MyHeader from '../components/header/MyHeader';
-import Login from '../screens/Login/index';
+import Login from '../screens/Login';
+import SignUp from '../screens/SignUp';
 
 export default () => (
   <Router >
@@ -15,6 +16,7 @@ export default () => (
 
           <Stack key="root" navBar={MyHeader}>
             <Scene key="Login" component={Login} title="Login" />
+            <Scene key="SignUp" component={SignUp} title="Sign Up" />
             <Scene key="Home" component={Home} title="Home" />
             <Scene key="Second" component={Second} title="Second" />
 

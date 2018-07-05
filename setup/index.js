@@ -1,12 +1,10 @@
 import * as Expo from 'expo';
 import React, { Component } from 'react';
 import { StyleProvider } from 'native-base';
-import { Provider } from 'react-redux';
 
-import App from '../App';
+import App from '../src/App';
 import getTheme from './theme/components';
-import variables from './theme/variables/commonColor';
-import configureStore from './configureStore';
+import variables from './theme/variables/material';
 
 export default class Setup extends Component {
   constructor() {
@@ -30,16 +28,12 @@ export default class Setup extends Component {
   }
 
   render() {
-    const store = configureStore();
-
     if (!this.state.isReady) {
       return <Expo.AppLoading />;
     }
     return (
       <StyleProvider style={getTheme(variables)}>
-        <Provider store={store}>
-          <App />
-        </Provider>
+        <App />
       </StyleProvider>
     );
   }
