@@ -4,7 +4,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form/immutable';
+import { Field, reduxForm } from 'redux-form';
 import { createStructuredSelector } from 'reselect';
 import InputReduxForm from '../../components/form/InputReduxForm';
 
@@ -49,7 +49,7 @@ const mapDispatchToProps = () => ({
 
 const LoginForm = reduxForm({
   form: 'login',
-  onSubmit: values => console.log(values.toJS()),
+  onSubmit: values => console.log(values),
 })(Login);
 
 const LoginRedux = connect(

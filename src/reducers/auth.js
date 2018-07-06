@@ -1,5 +1,3 @@
-import { fromJS } from 'immutable';
-
 // Actions
 const LOGIN_SUCCESS = 'reducer/auth/LOGIN_SUCCESS';
 const LOGIN_FAIL = 'reducer/auth/LOGIN_FAIL';
@@ -9,16 +7,16 @@ const LOGOUT = 'reducer/auth/LOGOUT';
 // TODO: Look token
 const logged = false;
 
-const initialState = fromJS({
+const initialState = {
   logged,
-});
+};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      return state.set('logged', true);
+      return { ...state, logged };
     case LOGOUT:
-      return state.set('logged', false);
+      return { ...state, logged: false };
     default:
       return state;
   }

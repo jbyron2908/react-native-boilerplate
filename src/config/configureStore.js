@@ -1,6 +1,5 @@
 /* eslint-disable max-len,no-underscore-dangle,no-undef,global-require,global-require */
 import { applyMiddleware, compose, createStore } from 'redux';
-import { fromJS } from 'immutable';
 import { createEpicMiddleware } from 'redux-observable';
 
 import reducers from '../reducers';
@@ -16,7 +15,6 @@ export default function configureStore() {
     applyMiddleware(...middlewares),
   ];
 
-
   const composeEnhancers =
     process.env.NODE_ENV !== 'production' &&
     typeof window === 'object' &&
@@ -30,7 +28,7 @@ export default function configureStore() {
 
   const store = createStore(
     reducers,
-    fromJS(initialState),
+    initialState,
     composeEnhancers(...enhancers),
   );
 

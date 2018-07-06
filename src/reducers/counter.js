@@ -1,20 +1,18 @@
-import { fromJS } from 'immutable';
-
 // Actions
 const INCREASE = 'reducer/counter/INCREASE';
 const DECREASE = 'reducer/counter/DECREASE';
 
 // Reducer
-const initialState = fromJS({
+const initialState = {
   counter: 0,
-});
+};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case INCREASE:
-      return state.set('counter', state.get('counter') + 1);
+      return { ...state, counter: state.counter + 1 };
     case DECREASE:
-      return state.set('counter', state.get('counter') - 1);
+      return { ...state, counter: state.counter - 1 };
     default:
       return state;
   }

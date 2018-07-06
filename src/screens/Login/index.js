@@ -5,7 +5,7 @@ import { Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form/immutable';
+import { Field, reduxForm } from 'redux-form';
 import { createStructuredSelector } from 'reselect';
 import InputReduxForm from '../../components/form/InputReduxForm';
 import { getUser } from '../../epics/user';
@@ -65,7 +65,7 @@ const mapDispatchToProps = dispatch => ({
 
 const LoginForm = reduxForm({
   form: 'login',
-  onSubmit: values => console.log(values.toJS()),
+  onSubmit: values => console.log(values),
 })(Login);
 
 const LoginRedux = connect(
