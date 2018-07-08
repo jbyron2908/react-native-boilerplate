@@ -2,8 +2,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { from } from 'rxjs';
-
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjamV5YmVvcHQwMDRmMDkyOHY5Zm1vNWl5IiwiaWF0IjoxNTI0NDg4Nzg2fQ.qlh173N5HBNXFbNv9WVtdU3xwxs4vVSQHnZtYVcLaqU';
+import syncStorage from 'sync-storage';
 
 const httpLink = createHttpLink({
   uri: 'http://10.0.3.2:4000',
@@ -15,8 +14,7 @@ const client = new ApolloClient({
 });
 
 export const query = (gql, variables = {}) => {
-  // TODO: Get token
-  // const token = getToken;
+  const token = syncStorage.get('token');
 
   const queryObject = {
     query: gql,
@@ -37,8 +35,7 @@ export const query = (gql, variables = {}) => {
 };
 
 export const mutate = (gql, variables = {}) => {
-  // TODO: Get token
-  // const token = getToken;
+  const token = syncStorage.get('token');
 
   const mutateObject = {
     mutation: gql,

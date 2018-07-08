@@ -1,44 +1,43 @@
+import syncStorage from 'sync-storage';
+
 // Actions
 const LOGIN_SUCCESS = 'reducer/auth/LOGIN_SUCCESS';
 const LOGIN_FAIL = 'reducer/auth/LOGIN_FAIL';
 const LOGOUT = 'reducer/auth/LOGOUT';
 
 // Reducer
-// TODO: Look token
-const logged = false;
-
 const initialState = {
-  logged,
+  logged: false,
+  token: '',
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      return { ...state, logged };
+      syncStorage.set('token', action.payload);
+      return { ...state, logged: true, token: action.payload };
     case LOGOUT:
-      return { ...state, logged: false };
+      return { ...state, logged: false, token: '' };
     default:
       return state;
   }
 }
 
 // Action Creators
-export function loginSuccessAction(token) {
-  // TODO: Store token
+export function loginSuccess(token) {
   return {
     type: LOGIN_SUCCESS,
+    payload: token,
   };
 }
 
-export function loginFailAction() {
+export function loginFail() {
   return {
     type: LOGIN_FAIL,
   };
 }
 
-export function logoutAction() {
-  // TODO: Remove token
-
+export function logout() {
   return {
     type: LOGOUT,
   };

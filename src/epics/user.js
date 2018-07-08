@@ -15,7 +15,7 @@ export default action$ =>
   );
 
 // Action Creators
-export function getUser() {
+export function getUserEpic() {
   return {
     type: GET_USER,
   };
