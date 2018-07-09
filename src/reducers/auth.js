@@ -16,6 +16,9 @@ export default function reducer(state = initialState, action) {
     case LOGIN_SUCCESS:
       syncStorage.set('token', action.payload);
       return { ...state, logged: true, token: action.payload };
+    case LOGIN_FAIL:
+      syncStorage.set('token', '');
+      return { ...state, logged: false, token: '' };
     case LOGOUT:
       return { ...state, logged: false, token: '' };
     default:

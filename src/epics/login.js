@@ -1,7 +1,8 @@
 import { ofType } from 'redux-observable';
-import { map, mergeMap } from 'rxjs/operators';
+import { flatMap, mergeMap, catchError } from 'rxjs/operators';
 import loginMutation from '../graphql/mutations/login';
-import { loginSuccess } from '../reducers/auth';
+import { loginSuccess, loginFail } from '../reducers/auth';
+import { of } from '../../node_modules/rxjs';
 
 // Actions
 const LOGIN = 'epic/auth/LOGIN';
@@ -12,10 +13,27 @@ export default action$ =>
     ofType(LOGIN),
     mergeMap((action) => {
       const { email, password } = action.payload;
-      return loginMutation(email, password);
+      return loginMutation(email, password).pipe(
+        flatMap(data => [mapFail(data), mapSuccess(data)]),
+        catchError(loginFailError),
+      );
     }),
-    map(response => loginSuccess(response.data.login.token)),
   );
+
+const mapSuccess = (response) => {
+  console.log(response);
+  return loginSuccess(response.data.login.token);
+};
+
+const mapFail = (response) => {
+  console.log(response);
+  return loginFail();
+};
+
+const loginFailError = (error) => {
+  console.log(error);
+  return of(loginFail());
+};
 
 // Action Creators
 export function loginEpic(email, password) {

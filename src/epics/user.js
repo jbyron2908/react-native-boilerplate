@@ -1,5 +1,6 @@
 import { ofType } from 'redux-observable';
-import { map, mergeMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import meQuery from '../graphql/queries/me';
 import { getUserComplete } from '../reducers/user';
 
@@ -10,8 +11,10 @@ const GET_USER = 'epic/user/GET_USER';
 export default action$ =>
   action$.pipe(
     ofType(GET_USER),
-    mergeMap(() => meQuery()),
-    map(response => getUserComplete(response.data.me)),
+    mergeMap(() => meQuery().pipe(
+      map(response => getUserComplete(response.data.me)),
+      catchError(error => of(error)),
+    )),
   );
 
 // Action Creators
