@@ -11,8 +11,10 @@ function* login(action) {
   try {
     const { email, password } = action.payload;
     const { data } = yield call(loginMutation, email, password);
+    console.log(data);
     yield put(loginSuccess(data.login.token));
   } catch (error) {
+    console.log(error);
     yield put(loginFail());
   }
 }

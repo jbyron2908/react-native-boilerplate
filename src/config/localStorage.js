@@ -1,14 +1,19 @@
 import { AsyncStorage } from 'react-native';
 
 class LocalStorage {
-  async load(key, defaultValue) {
+  async load(key, defaultValue = null) {
+    let result = defaultValue;
     try {
+      console.log('load');
       const value = await AsyncStorage.getItem(key);
-      const result = (!value) ? defaultValue : value;
-      return result;
+      console.log(`value = ${value}`);
+      result = (!value) ? defaultValue : value;
     } catch (error) {
-      return defaultValue;
+      console.log(`error = ${error}`);
+      result = defaultValue;
     }
+    console.log('out');
+    return result;
   }
 
   async save(key, data) {

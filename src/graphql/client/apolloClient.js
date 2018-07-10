@@ -2,14 +2,14 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
-import syncStorage from 'sync-storage';
+import localStorage from '../../config/localStorage';
 
 const httpLink = createHttpLink({
   uri: 'http://10.0.3.2:4000',
 });
 
 const authLink = setContext(async (_, { headers }) => {
-  const token = syncStorage.get('token');
+  const token = await localStorage.load('token', '');
 
   return {
     headers: {

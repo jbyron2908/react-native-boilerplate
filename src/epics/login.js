@@ -13,10 +13,11 @@ export default action$ =>
     ofType(LOGIN),
     mergeMap((action) => {
       const { email, password } = action.payload;
-      return loginMutation(email, password).pipe(
-        flatMap(data => [mapFail(data), mapSuccess(data)]),
-        catchError(loginFailError),
-      );
+      return of(loginMutation(email, password)
+        .pipe(
+          flatMap(data => [mapFail(data), mapSuccess(data)]),
+          catchError(loginFailError),
+        ));
     }),
   );
 

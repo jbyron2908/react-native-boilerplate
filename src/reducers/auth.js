@@ -1,4 +1,3 @@
-import syncStorage from 'sync-storage';
 
 // Actions
 const LOGIN_SUCCESS = 'reducer/auth/LOGIN_SUCCESS';
@@ -14,10 +13,8 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      syncStorage.set('token', action.payload);
       return { ...state, logged: true, token: action.payload };
     case LOGIN_FAIL:
-      syncStorage.set('token', '');
       return { ...state, logged: false, token: '' };
     case LOGOUT:
       return { ...state, logged: false, token: '' };

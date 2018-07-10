@@ -11,10 +11,11 @@ const GET_USER = 'epic/user/GET_USER';
 export default action$ =>
   action$.pipe(
     ofType(GET_USER),
-    mergeMap(() => meQuery().pipe(
-      map(response => getUserComplete(response.data.me)),
-      catchError(error => of(error)),
-    )),
+    mergeMap(() => of(meQuery()
+      .pipe(
+        map(response => getUserComplete(response.data.me)),
+        catchError(error => of(error)),
+      ))),
   );
 
 // Action Creators
