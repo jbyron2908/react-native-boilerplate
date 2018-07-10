@@ -8,8 +8,8 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { createStructuredSelector } from 'reselect';
 import InputReduxForm from '../../components/form/InputReduxForm';
-import { getUserEpic } from '../../epics/user';
-import { loginEpic } from '../../epics/login';
+import { loginSaga } from '../../sagas/login';
+import { getUserSaga } from '../../sagas/user';
 
 const Login = ({ submit, onGetUserGraphQLClick }) => (
   <KeyboardAwareScrollView
@@ -60,13 +60,13 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
   onGetUserGraphQLClick: () => {
-    dispatch(getUserEpic());
+    dispatch(getUserSaga());
   },
 });
 
 const LoginForm = reduxForm({
   form: 'login',
-  onSubmit: ({ email, password }, dispatch) => dispatch(loginEpic(email, password)),
+  onSubmit: ({ email, password }, dispatch) => dispatch(loginSaga(email, password)),
 })(Login);
 
 const LoginRedux = connect(

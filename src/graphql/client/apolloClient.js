@@ -2,7 +2,6 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
-import { from } from 'rxjs';
 import syncStorage from 'sync-storage';
 
 const httpLink = createHttpLink({
@@ -33,8 +32,7 @@ export const query = (gql, variables = {}) => {
   };
 
   const apolloQuery = client.query(queryObject);
-  const queryObservable = from(apolloQuery);
-  return queryObservable;
+  return apolloQuery;
 };
 
 export const mutate = (gql, variables = {}) => {
@@ -44,6 +42,5 @@ export const mutate = (gql, variables = {}) => {
   };
 
   const apolloMutate = client.mutate(mutateObject);
-  const mutateObservable = from(apolloMutate);
-  return mutateObservable;
+  return apolloMutate;
 };

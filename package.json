@@ -52,6 +52,7 @@
     "redux-form": "^7.4.2",
     "redux-observable": "^1.0.0",
     "redux-persist": "^5.10.0",
+    "redux-saga": "^0.16.0",
     "reselect": "^3.0.1",
     "rxdb": "^7.6.1",
     "rxjs": "^6.2.1",

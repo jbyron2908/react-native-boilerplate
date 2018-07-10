@@ -2,7 +2,7 @@ import { ofType } from 'redux-observable';
 import { flatMap, mergeMap, catchError } from 'rxjs/operators';
 import loginMutation from '../graphql/mutations/login';
 import { loginSuccess, loginFail } from '../reducers/auth';
-import { of } from '../../node_modules/rxjs';
+import { of } from 'rxjs';
 
 // Actions
 const LOGIN = 'epic/auth/LOGIN';
