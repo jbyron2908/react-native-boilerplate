@@ -3,5 +3,7 @@
     "sdkVersion": "27.0.0",
     "slug": "my-finance",
     "name": "My Finance"
-  }
+  },
+  "name": "myfinance",
+  "displayName": "My Finance"
 }
