@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { mutate } from '../client/apolloClient';
+import apolloClient from '../client/apolloClient';
 
 const queryGQL = gql`
   mutation login($email: String!, $password: String!) {
@@ -9,6 +9,6 @@ const queryGQL = gql`
   }
 `;
 
-const loginMutation = (email, password) => mutate(queryGQL, { email, password });
+const loginMutation = (email, password) => apolloClient.mutate(queryGQL, { email, password });
 
 export default loginMutation;

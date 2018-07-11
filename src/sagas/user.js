@@ -7,8 +7,7 @@ import { getUserComplete } from '../reducers/user';
 const GET_USER = 'saga/user/GET_USER';
 
 // Saga
-function* getUser(action) {
-  console.log(action);
+function* getUser() {
   try {
     const { data } = yield call(meQuery);
     yield put(getUserComplete(data.me));

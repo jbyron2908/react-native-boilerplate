@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { query } from '../client/apolloClient';
+import apolloClient from '../client/apolloClient';
 
 const queryGQL = gql`{
   me {
@@ -8,6 +8,6 @@ const queryGQL = gql`{
   }
 }`;
 
-const meQuery = () => query(queryGQL);
+const meQuery = () => apolloClient.query(queryGQL);
 
 export default meQuery;

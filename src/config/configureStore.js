@@ -2,14 +2,13 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
 import { persistReducer, persistStore } from 'redux-persist';
-import createSagaMiddleware from 'redux-saga'
+import createSagaMiddleware from 'redux-saga';
 import { AsyncStorage } from 'react-native';
 import epics from '../epics';
 import sagas from '../sagas';
 import reducers from '../reducers';
 
-
-export default function configureStore() {
+const configureStore = () => {
   const epicMiddleware = createEpicMiddleware();
   const sagaMiddleware = createSagaMiddleware();
 
@@ -52,4 +51,8 @@ export default function configureStore() {
   sagaMiddleware.run(sagas);
 
   return { store, persistor };
-}
+};
+
+const result = configureStore();
+
+export default result;

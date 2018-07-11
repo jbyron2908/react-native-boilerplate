@@ -5,7 +5,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import configureStore from './config/configureStore';
 import RootStack from './navigation/RootStack';
 
-const { store, persistor } = configureStore();
+const { store, persistor } = configureStore;
 
 export default () => (
   <Provider store={store}>
