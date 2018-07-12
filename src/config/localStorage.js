@@ -4,15 +4,11 @@ class LocalStorage {
   async load(key, defaultValue = null) {
     let result = defaultValue;
     try {
-      console.log('load');
       const value = await AsyncStorage.getItem(key);
-      console.log(`value = ${value}`);
       result = (!value) ? defaultValue : value;
     } catch (error) {
-      console.log(`error = ${error}`);
       result = defaultValue;
     }
-    console.log('out');
     return result;
   }
 

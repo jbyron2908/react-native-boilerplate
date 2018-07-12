@@ -2,8 +2,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
-import { createStructuredSelector } from '../../../node_modules/reselect';
-import configureStore from '../../config/configureStore';
+import { getReduxStorageValue } from '../../config/reduxLocalStorage';
 import { getSelectToken } from '../../selectors/auth';
 
 class ApolloClientWrapper {
@@ -13,9 +12,7 @@ class ApolloClientWrapper {
     });
 
     const authLink = setContext((_, { headers }) => {
-      // const token = await localStorage.load('token', '');
-      const { token } = ApolloClientWrapper.getReduxValues();
-      console.log(`token = ${token}`);
+      const token = getReduxStorageValue(getSelectToken);
 
       return {
         headers: {
@@ -29,15 +26,6 @@ class ApolloClientWrapper {
       link: authLink.concat(httpLink),
       cache: new InMemoryCache(),
     });
-  }
-
-  static getReduxValues() {
-    const structedSelector = createStructuredSelector({
-      token: getSelectToken,
-    });
-
-    const { store } = configureStore;
-    return structedSelector(store.getState());
   }
 
   query = (gql, variables = {}) => {

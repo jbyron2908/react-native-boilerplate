@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 const authState = state => state.auth;
 
-const getSelectToken = () => createSelector(
+const getSelectToken = createSelector(
   authState,
   state => state.token,
 );

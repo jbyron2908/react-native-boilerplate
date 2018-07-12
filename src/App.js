@@ -2,10 +2,10 @@ import { Container, Root } from 'native-base';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import configureStore from './config/configureStore';
+import reduxStore from './config/reduxStore';
 import RootStack from './navigation/RootStack';
 
-const { store, persistor } = configureStore;
+const { store, persistor } = reduxStore;
 
 export default () => (
   <Provider store={store}>
