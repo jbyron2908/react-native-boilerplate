@@ -8,7 +8,7 @@ import { Field, reduxForm } from 'redux-form';
 import { createStructuredSelector } from 'reselect';
 import InputReduxForm from '../../components/form/InputReduxForm';
 
-const Login = ({ submit }) => (
+const SignUpComponent = ({ submit }) => (
   <KeyboardAwareScrollView
     enableOnAndroid
     enableAutomaticScroll
@@ -35,7 +35,7 @@ const Login = ({ submit }) => (
 );
 
 
-Login.propTypes = {
+SignUpComponent.propTypes = {
   submit: PropTypes.func.isRequired,
 };
 
@@ -47,15 +47,15 @@ const mapDispatchToProps = () => ({
 
 });
 
-const LoginForm = reduxForm({
+const SignUpForm = reduxForm({
   form: 'login',
   onSubmit: values => console.log(values),
-})(Login);
+})(SignUpComponent);
 
-const LoginRedux = connect(
+const SignUp = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(LoginForm);
+)(SignUpForm);
 
-export default LoginRedux;
+export default SignUp;
 

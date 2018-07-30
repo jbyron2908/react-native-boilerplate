@@ -13,7 +13,7 @@ import { getUserSaga } from '../../sagas/user';
 
 class Login extends PureComponent {
   render() {
-    const { submit, onGetUserGraphQLClick } = this.props;
+    const { submit } = this.props;
     return (
       <KeyboardAwareScrollView
         enableOnAndroid
@@ -41,12 +41,6 @@ class Login extends PureComponent {
 
           </View>
 
-          <Button onPress={() => onGetUserGraphQLClick()}>
-            <Text>
-          Get user
-            </Text>
-          </Button>
-
         </Content>
       </KeyboardAwareScrollView>
     );
@@ -55,7 +49,6 @@ class Login extends PureComponent {
 
 Login.propTypes = {
   submit: PropTypes.func.isRequired,
-  onGetUserGraphQLClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
