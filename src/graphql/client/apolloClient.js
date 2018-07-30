@@ -1,9 +1,10 @@
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
+import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
-import { getReduxStorageValue } from '../../config/reduxLocalStorage';
-import { getSelectToken } from '../../selectors/auth';
+import localStorage from '../../localStorage/localStorage';
+import { TOKEN_SK } from '../../localStorage/localStorageKeys';
 
 class ApolloClientWrapper {
   constructor() {
@@ -11,8 +12,8 @@ class ApolloClientWrapper {
       uri: 'http://10.0.3.2:4000',
     });
 
-    const authLink = setContext((_, { headers }) => {
-      const token = getReduxStorageValue(getSelectToken);
+    const authLink = setContext(async (_, { headers }) => {
+      const token = await localStorage.load(TOKEN_SK);
 
       return {
         headers: {
@@ -22,8 +23,13 @@ class ApolloClientWrapper {
       };
     });
 
+    const link = ApolloLink.from([
+      authLink,
+      httpLink,
+    ]);
+
     this.client = new ApolloClient({
-      link: authLink.concat(httpLink),
+      link,
       cache: new InMemoryCache(),
     });
   }
