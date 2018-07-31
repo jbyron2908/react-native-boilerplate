@@ -1,5 +1,5 @@
 // Actions
-const USER = 'reducer/user/USER';
+const USER = 'reducer/user/USER_UPDATE';
 
 // Reducer
 const initialState = {
@@ -16,7 +16,7 @@ export default function reducer(state = initialState, action) {
 }
 
 // Action Creators
-export function getUserComplete(userData) {
+export function updateUserAction(userData) {
   return {
     type: USER,
     payload: userData,
