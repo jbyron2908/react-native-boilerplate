@@ -5,12 +5,14 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { getSelectToken } from '../../selectors/auth';
+import database from '../../rxdb/database/database';
 
 class EntryComponent extends PureComponent {
-  componentWillMount() {
+  async componentWillMount() {
+    database.init();
     const { token } = this.props;
     if (token) {
-      Actions.replace('Home');
+      Actions.replace('RxDB');
     } else {
       Actions.replace('Login');
     }

@@ -8,6 +8,7 @@ import Home from '../screens/Home';
 import Login from '../screens/Login';
 import Second from '../screens/Second';
 import SignUp from '../screens/SignUp';
+import RxDB from '../screens/RxDB';
 
 export default () => (
   <Router >
@@ -19,6 +20,7 @@ export default () => (
             <Scene key="Entry" component={Entry} title="Entry" />
             <Scene key="Login" component={Login} title="Login" />
             <Scene key="SignUp" component={SignUp} title="Sign Up" />
+            <Scene key="RxDB" component={RxDB} title="RxDB" />
             <Scene key="Home" component={Home} title="Home" />
             <Scene key="Second" component={Second} title="Second" />
 
