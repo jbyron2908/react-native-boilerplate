@@ -3,6 +3,7 @@ import loginMutation from '../graphql/mutations/login';
 import localStorage from '../localStorage/localStorage';
 import { TOKEN_SK } from '../localStorage/localStorageKeys';
 import { loginFail, loginSuccess } from '../reducers/auth';
+import { persistor } from '../config/reduxStore';
 
 // Actions
 const LOGIN = 'saga/auth/LOGIN';
@@ -15,6 +16,7 @@ function* login(action) {
     const { token } = data.login;
     yield localStorage.save(TOKEN_SK, token);
     yield put(loginSuccess(token));
+    yield persistor.flush();
   } catch (error) {
     yield put(loginFail());
   }
