@@ -3,11 +3,11 @@ import { Drawer, Lightbox, Modal, Overlay, Router, Scene, Stack } from 'react-na
 import MyDialog from '..//dialog/MyDialog';
 import DrawerContent from '../components/drawer/DrawerContent';
 import MyHeader from '../components/header/MyHeader';
+import Entry from '../screens/Entry';
 import Home from '../screens/Home';
 import Login from '../screens/Login';
 import Second from '../screens/Second';
 import SignUp from '../screens/SignUp';
-import Splash from '../screens/Splash';
 
 export default () => (
   <Router >
@@ -16,7 +16,7 @@ export default () => (
         <Lightbox key="lightbox">
 
           <Stack key="root" navBar={MyHeader}>
-            <Scene key="Splash" component={Splash} title="Splash" />
+            <Scene key="Entry" component={Entry} title="Entry" />
             <Scene key="Login" component={Login} title="Login" />
             <Scene key="SignUp" component={SignUp} title="Sign Up" />
             <Scene key="Home" component={Home} title="Home" />
