@@ -35,6 +35,7 @@ const configureStore = () => {
   const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
+    blacklist: ['form'],
   };
 
   const persistedReducer = persistReducer(persistConfig, reducers);
@@ -53,6 +54,8 @@ const configureStore = () => {
   return { store, persistor };
 };
 
-const result = configureStore();
+const reduxStore = configureStore();
 
-export default result;
+export const { store, persistor } = reduxStore;
+
+export default reduxStore;
