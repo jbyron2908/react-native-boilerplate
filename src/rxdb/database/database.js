@@ -1,8 +1,5 @@
-import RxDB, { QueryChangeDetector } from 'rxdb';
+import RxDB from 'rxdb';
 import collections from '../collections/index';
-
-QueryChangeDetector.enable();
-QueryChangeDetector.enableDebugging();
 
 RxDB.plugin(require('pouchdb-adapter-asyncstorage'));
 
@@ -10,7 +7,7 @@ class Database {
   async init() {
     try {
       this.db = await RxDB.create({
-        name: 'myFinanceDB',
+        name: 'myfinancedb',
         adapter: 'asyncstorage',
         password: 'myFinanceDBPassword',
       });

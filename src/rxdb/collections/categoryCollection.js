@@ -1,23 +1,24 @@
 
 const schema = {
-  title: 'User Schema',
-  description: 'Describes an User',
+  title: 'Category Schema',
+  description: 'Describes a Category',
   version: 0,
   type: 'object',
   properties: {
     id: {
       type: 'string',
-    },
-    email: {
-      type: 'string',
+      primary: true,
     },
     name: {
+      type: 'string',
+    },
+    parent: {
       type: 'string',
     },
   },
 };
 
 export default {
-  name: 'users',
+  name: 'categories',
   schema,
 };
