@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { Button, Content, Form, Text, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
@@ -19,10 +20,10 @@ class RxDBComponent extends PureComponent {
   }
 
   async removeUsers() {
-    console.log('getUsers');
+    console.log('removeUsers');
     const db = await database.getInstance();
     const userArray = await db.users.find().exec();
-    userArray.forEach(async (user) => {
+    await _.forEach(userArray, async (user) => {
       await user.remove();
     });
   }
@@ -48,6 +49,30 @@ class RxDBComponent extends PureComponent {
     console.log(transactionsArray);
   }
 
+  async removeRxDBDocs() {
+    console.log('removeRxDBDocs');
+    const db = await database.getInstance();
+
+    const userArray = await db.users.find().exec();
+    await _.forEach(userArray, async (user) => {
+      await user.remove();
+    });
+
+    const categoryArray = await db.categories.find().exec();
+    await _.forEach(categoryArray, async (category) => {
+      await category.remove();
+    });
+
+    const accountArray = await db.accounts.find().exec();
+    await _.forEach(accountArray, async (account) => {
+      await account.remove();
+    });
+
+    const transactionArray = await db.transactions.find().exec();
+    await _.forEach(transactionArray, async (transaction) => {
+      await transaction.remove();
+    });
+  }
 
   render() {
     const { submit, onSyncClick } = this.props;
@@ -94,6 +119,12 @@ class RxDBComponent extends PureComponent {
               <Text>Log RxDB</Text>
             </Button>
 
+          </View>
+
+          <View flexDirection="row" justifyContent="center">
+            <Button onPress={async () => { await this.removeRxDBDocs(); }}>
+              <Text>Remove RxDB docs</Text>
+            </Button>
           </View>
 
         </Content>
