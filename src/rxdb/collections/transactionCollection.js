@@ -16,7 +16,7 @@ const schema = {
       type: 'string',
     },
     category: {
-      type: 'string',
+      type: ['string', 'null'],
     },
     date: {
       type: 'string',
@@ -32,7 +32,7 @@ const schema = {
       type: 'string',
     },
     account: {
-      type: 'string',
+      type: ['string', 'null'],
     },
   },
 };

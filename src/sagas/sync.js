@@ -1,4 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
+import _ from 'lodash';
 import syncQuery from '../graphql/queries/sync';
 import { updateUserAction } from '../reducers/user';
 import database from '../rxdb/database/database';
@@ -28,48 +29,53 @@ function* updateUser(me) {
 }
 
 async function updateCategories(categories) {
-  console.log('updateCategories');
-  console.log(categories);
-  categories.forEach(async (category) => {
-    console.log('updateCategory');
-    console.log(category);
-    try {
+  _(categories)
+    .map(category => ({
+      id: category.id,
+      name: category.name,
+      parent: category.parent ? category.parent.id : null,
+    }))
+    .forEach(async (category) => {
       const db = await database.getInstance();
       await db.categories.atomicUpsert(category);
-    } catch (error) {
-      console.log(error);
-    }
-  });
+    });
 }
 
 async function updateAccounts(accounts) {
   console.log('updateAccounts');
   console.log(accounts);
-  accounts.forEach(async (account) => {
-    console.log('updateAccount');
-    console.log(account);
-    try {
+  _(accounts)
+    .map(account => ({
+      id: account.id,
+      name: account.name,
+      type: account.type,
+      initialValue: account.initialValue,
+    }))
+    .forEach(async (account) => {
       const db = await database.getInstance();
       await db.accounts.atomicUpsert(account);
-    } catch (error) {
-      console.log(error);
-    }
-  });
+    });
 }
 
 async function updateTransactions(transactions) {
   console.log('updateTransactions');
   console.log(transactions);
-  transactions.forEach(async (transaction) => {
-    console.log('updateTransaction');
-    console.log(transaction);
-    try {
+  _(transactions)
+    .map(transaction => ({
+      id: transaction.id,
+      value: transaction.value,
+      operation: transaction.operation,
+      category: transaction.category ? transaction.category.id : null,
+      date: transaction.date,
+      description: transaction.description,
+      note: transaction.note,
+      status: transaction.status,
+      account: transaction.account ? transaction.account.id : null,
+    }))
+    .forEach(async (transaction) => {
       const db = await database.getInstance();
       await db.transactions.atomicUpsert(transaction);
-    } catch (error) {
-      console.log(error);
-    }
-  });
+    });
 }
 
 export default function* () {
