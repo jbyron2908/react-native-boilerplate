@@ -3,6 +3,7 @@ import _ from 'lodash';
 import syncQuery from '../graphql/queries/sync';
 import { updateUserAction } from '../reducers/user';
 import database from '../rxdb/database/database';
+import { updateStoreSaga } from './updateStore';
 
 // Actions
 const SYNC = 'saga/auth/sync';
@@ -11,40 +12,40 @@ const SYNC = 'saga/auth/sync';
 function* saga() {
   const response = yield call(syncQuery);
   const { me } = response.data;
-  yield updateUser(me);
+  yield put(updateUserAction(getUser(me)));
 
   const { categories, accounts, transactions } = me;
-  yield updateCategories(categories);
-  yield updateAccounts(accounts);
-  yield updateTransactions(transactions);
+  yield call(updateCategories, categories);
+  yield call(updateAccounts, accounts);
+  yield call(updateTransactions, transactions);
+  yield put(updateStoreSaga());
 }
 
-function* updateUser(me) {
-  const user = {
+function getUser(me) {
+  return {
     id: me.id,
     email: me.email,
     name: me.name,
   };
-  yield put(updateUserAction(user));
 }
 
 async function updateCategories(categories) {
-  _(categories)
+  await _(categories)
     .map(category => ({
       id: category.id,
       name: category.name,
       parent: category.parent ? category.parent.id : null,
     }))
     .forEach(async (category) => {
+      console.log('updateCategory');
       const db = await database.getInstance();
-      await db.categories.atomicUpsert(category);
+      const categoryDoc = await db.categories.atomicUpsert(category);
+      console.log(categoryDoc);
     });
 }
 
 async function updateAccounts(accounts) {
-  console.log('updateAccounts');
-  console.log(accounts);
-  _(accounts)
+  await _(accounts)
     .map(account => ({
       id: account.id,
       name: account.name,
@@ -52,15 +53,15 @@ async function updateAccounts(accounts) {
       initialValue: account.initialValue,
     }))
     .forEach(async (account) => {
+      console.log('updateAccount');
       const db = await database.getInstance();
-      await db.accounts.atomicUpsert(account);
+      const accountDoc = await db.accounts.atomicUpsert(account);
+      console.log(accountDoc);
     });
 }
 
 async function updateTransactions(transactions) {
-  console.log('updateTransactions');
-  console.log(transactions);
-  _(transactions)
+  await _(transactions)
     .map(transaction => ({
       id: transaction.id,
       value: transaction.value,
@@ -73,8 +74,10 @@ async function updateTransactions(transactions) {
       account: transaction.account ? transaction.account.id : null,
     }))
     .forEach(async (transaction) => {
+      console.log('updateTransaction');
       const db = await database.getInstance();
-      await db.transactions.atomicUpsert(transaction);
+      const transactionDoc = await db.transactions.atomicUpsert(transaction);
+      console.log(transactionDoc);
     });
 }
 
