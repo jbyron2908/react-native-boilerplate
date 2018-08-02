@@ -1,8 +1,9 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import _ from 'lodash';
 import aigle from 'aigle';
+import _ from 'lodash';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import syncQuery from '../graphql/queries/sync';
-import { updateUserAction } from '../reducers/user';
+import localStorage from '../localStorage/localStorage';
+import localStorageKeys from '../localStorage/localStorageKeys';
 import database from '../rxdb/database/database';
 import { updateStoreSaga } from './updateStore';
 
@@ -15,7 +16,7 @@ const SYNC = 'saga/auth/sync';
 function* saga() {
   const response = yield call(syncQuery);
   const { me } = response.data;
-  yield put(updateUserAction(getUser(me)));
+  yield call(updateUser, getUser(me));
 
   const { categories, accounts, transactions } = me;
   yield call(updateCategories, categories);
@@ -30,6 +31,10 @@ function getUser(me) {
     email: me.email,
     name: me.name,
   };
+}
+
+async function updateUser(user) {
+  await localStorage.saveObject(localStorageKeys.USER, user);
 }
 
 async function updateCategories(categories) {

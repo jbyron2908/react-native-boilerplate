@@ -3,6 +3,9 @@ import { updateCategoriesAction } from '../reducers/categories';
 import database from '../rxdb/database/database';
 import { updateAccountsAction } from '../reducers/accounts';
 import { updateTransactionsAction } from '../reducers/transactions';
+import localStorage from '../localStorage/localStorage';
+import localStorageKeys from '../localStorage/localStorageKeys';
+import { updateUserAction } from '../reducers/user';
 
 // Actions
 const UPDATE_STORE = 'saga/auth/update_store';
@@ -10,6 +13,9 @@ const UPDATE_STORE = 'saga/auth/update_store';
 // Saga
 function* saga() {
   console.log('updateStoreSaga');
+  const user = yield call(localStorage.loadObject, localStorageKeys.USER);
+  yield put(updateUserAction(user));
+
   const categories = yield call(getCategories);
   yield put(updateCategoriesAction(categories));
 
