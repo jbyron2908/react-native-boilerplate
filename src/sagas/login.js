@@ -3,7 +3,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { persistor } from '../config/reduxStore';
 import loginMutation from '../graphql/mutations/login';
 import localStorage from '../localStorage/localStorage';
-import { TOKEN_SK } from '../localStorage/localStorageKeys';
+import localStorageKeys from '../localStorage/localStorageKeys';
 import { loginFail, loginSuccess } from '../reducers/auth';
 
 // Actions
@@ -15,7 +15,7 @@ function* login(action) {
     const { email, password } = action.payload;
     const { data } = yield call(loginMutation, email, password);
     const { token } = data.login;
-    yield localStorage.save(TOKEN_SK, token);
+    yield call(localStorage.save, localStorageKeys.TOKEN, token);
     yield put(loginSuccess(token));
     yield persistor.flush();
     Actions.replace('RxDB');

@@ -4,7 +4,7 @@ import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
 import localStorage from '../../localStorage/localStorage';
-import { TOKEN_SK } from '../../localStorage/localStorageKeys';
+import localStorageKeys from '../../localStorage/localStorageKeys';
 
 class ApolloClientWrapper {
   constructor() {
@@ -13,7 +13,7 @@ class ApolloClientWrapper {
     });
 
     const authLink = setContext(async (_, { headers }) => {
-      const token = await localStorage.load(TOKEN_SK);
+      const token = await localStorage.load(localStorageKeys.TOKEN);
 
       return {
         headers: {

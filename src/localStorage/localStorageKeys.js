@@ -1,8 +1,10 @@
 
-export const TOKEN_SK = 'token';
+const TOKEN = 'token';
+const USER = 'user';
 
 const localStorageKeys = {
-  TOKEN_SK,
+  TOKEN,
+  USER,
 };
 
 export default localStorageKeys;
