@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import aigle from 'aigle';
 import { Button, Content, Form, Text, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
@@ -10,6 +11,8 @@ import { createStructuredSelector } from 'reselect';
 import InputReduxForm from '../../components/form/InputReduxForm';
 import database from '../../rxdb/database/database';
 import { syncSaga } from '../../sagas/sync';
+
+aigle.mixin(_);
 
 class RxDBComponent extends PureComponent {
   async getUsers() {
@@ -23,7 +26,7 @@ class RxDBComponent extends PureComponent {
     console.log('removeUsers');
     const db = await database.getInstance();
     const userArray = await db.users.find().exec();
-    await _.forEach(userArray, async (user) => {
+    await aigle.forEach(userArray, async (user) => {
       await user.remove();
     });
   }
@@ -54,22 +57,22 @@ class RxDBComponent extends PureComponent {
     const db = await database.getInstance();
 
     const userArray = await db.users.find().exec();
-    await _.forEach(userArray, async (user) => {
+    await aigle.forEach(userArray, async (user) => {
       await user.remove();
     });
 
     const categoryArray = await db.categories.find().exec();
-    await _.forEach(categoryArray, async (category) => {
+    await aigle.forEach(categoryArray, async (category) => {
       await category.remove();
     });
 
     const accountArray = await db.accounts.find().exec();
-    await _.forEach(accountArray, async (account) => {
+    await aigle.forEach(accountArray, async (account) => {
       await account.remove();
     });
 
     const transactionArray = await db.transactions.find().exec();
-    await _.forEach(transactionArray, async (transaction) => {
+    await aigle.forEach(transactionArray, async (transaction) => {
       await transaction.remove();
     });
   }

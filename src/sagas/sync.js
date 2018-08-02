@@ -1,9 +1,12 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import _ from 'lodash';
+import aigle from 'aigle';
 import syncQuery from '../graphql/queries/sync';
 import { updateUserAction } from '../reducers/user';
 import database from '../rxdb/database/database';
 import { updateStoreSaga } from './updateStore';
+
+aigle.mixin(_);
 
 // Actions
 const SYNC = 'saga/auth/sync';
@@ -30,7 +33,7 @@ function getUser(me) {
 }
 
 async function updateCategories(categories) {
-  await _(categories)
+  await aigle.resolve(categories)
     .map(category => ({
       id: category.id,
       name: category.name,
@@ -45,7 +48,7 @@ async function updateCategories(categories) {
 }
 
 async function updateAccounts(accounts) {
-  await _(accounts)
+  await aigle.resolve(accounts)
     .map(account => ({
       id: account.id,
       name: account.name,
@@ -61,7 +64,7 @@ async function updateAccounts(accounts) {
 }
 
 async function updateTransactions(transactions) {
-  await _(transactions)
+  await aigle.resolve(transactions)
     .map(transaction => ({
       id: transaction.id,
       value: transaction.value,
