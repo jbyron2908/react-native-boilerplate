@@ -1,19 +1,13 @@
 /* eslint-disable max-len,no-underscore-dangle,no-undef,global-require,global-require */
 import { applyMiddleware, compose, createStore } from 'redux';
-import { createEpicMiddleware } from 'redux-observable';
-import { persistReducer, persistStore } from 'redux-persist';
 import createSagaMiddleware from 'redux-saga';
-import { AsyncStorage } from 'react-native';
-import epics from '../epics';
 import sagas from '../sagas';
 import reducers from '../reducers';
 
 const configureStore = () => {
-  const epicMiddleware = createEpicMiddleware();
   const sagaMiddleware = createSagaMiddleware();
 
   const middlewares = [
-    epicMiddleware,
     sagaMiddleware,
   ];
 
@@ -32,30 +26,19 @@ const configureStore = () => {
 
   const initialState = {};
 
-  const persistConfig = {
-    key: 'root',
-    storage: AsyncStorage,
-    blacklist: ['form'],
-  };
-
-  const persistedReducer = persistReducer(persistConfig, reducers);
-
   const store = createStore(
-    persistedReducer,
+    reducers,
     initialState,
     composeEnhancers(...enhancers),
   );
 
-  const persistor = persistStore(store);
-
-  epicMiddleware.run(epics);
   sagaMiddleware.run(sagas);
 
-  return { store, persistor };
+  return { store };
 };
 
 const reduxStore = configureStore();
 
-export const { store, persistor } = reduxStore;
+export const { store } = reduxStore;
 
 export default reduxStore;
