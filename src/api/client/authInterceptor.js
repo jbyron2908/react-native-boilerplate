@@ -1,4 +1,4 @@
-import localStorage from '../../config/localStorage';
+import localStorage from '../../localStorage';
 
 const authInterceptor = async (request) => {
   const auth = await localStorage.loadObject('auth');

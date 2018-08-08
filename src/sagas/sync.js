@@ -2,7 +2,7 @@ import aigle from 'aigle';
 import _ from 'lodash';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import syncQuery from '../graphql/queries/sync';
-import localStorage from '../localStorage/localStorage';
+import localStorage from '../localStorage';
 import localStorageKeys from '../localStorage/localStorageKeys';
 import database from '../rxdb/database/database';
 import { updateStoreSaga } from './updateStore';

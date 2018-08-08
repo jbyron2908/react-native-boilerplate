@@ -3,7 +3,7 @@ import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
-import localStorage from '../../localStorage/localStorage';
+import localStorage from '../../localStorage';
 import localStorageKeys from '../../localStorage/localStorageKeys';
 
 class ApolloClientWrapper {
