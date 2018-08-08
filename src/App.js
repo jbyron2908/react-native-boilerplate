@@ -1,20 +1,20 @@
 import { Container, Root } from 'native-base';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import reduxStore from './config/reduxStore';
-import RootStack from './navigation/RootStack';
+import { store } from './config/reduxStore';
+import RootNavigator from './navigation/RootNavigator';
+import NavigatorService from './navigation/NavigatorService';
 
-const { store, persistor } = reduxStore;
+const setNavigator = (navigatorRef) => {
+  NavigatorService.setNavigator(navigatorRef);
+};
 
 export default () => (
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <Root>
-        <Container>
-          <RootStack />
-        </Container>
-      </Root>
-    </PersistGate>
+    <Root>
+      <Container>
+        <RootNavigator ref={navigatorRef => setNavigator(navigatorRef)} />
+      </Container>
+    </Root>
   </Provider>
 );
