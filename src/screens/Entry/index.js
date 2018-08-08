@@ -1,20 +1,18 @@
 import { Container } from 'native-base';
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { Actions } from 'react-native-router-flux';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { getSelectToken } from '../../selectors/auth';
+import localStorage from '../../localStorage';
+import localStorageKeys from '../../localStorage/localStorageKeys';
 import database from '../../rxdb/database/database';
 
-class EntryComponent extends PureComponent {
+class EntryScreen extends PureComponent {
   async componentWillMount() {
     database.init();
-    const { token } = this.props;
+    const { navigation } = this.props;
+    const token = await localStorage.load(localStorageKeys.TOKEN);
     if (token) {
-      Actions.replace('RxDB');
+      navigation.navigate('RxDB');
     } else {
-      Actions.replace('Login');
+      navigation.navigate('Login');
     }
   }
 
@@ -23,14 +21,4 @@ class EntryComponent extends PureComponent {
   }
 }
 
-EntryComponent.propTypes = {
-  token: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = createStructuredSelector({
-  token: getSelectToken,
-});
-
-const Entry = connect(mapStateToProps)(EntryComponent);
-
-export default Entry;
+export default EntryScreen;

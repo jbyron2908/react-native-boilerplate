@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Actions } from 'react-native-router-flux';
-import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { createStructuredSelector } from 'reselect';
 import InputReduxForm from '../../components/form/InputReduxForm';
 import { loginSaga } from '../../sagas/login';
-import { getUserSaga } from '../../sagas/user';
 
-class Login extends PureComponent {
+class LoginComponent extends PureComponent {
+  static navigationOptions = {
+    title: 'Login',
+  };
+
   render() {
-    const { submit } = this.props;
+    const { submit, navigation } = this.props;
     return (
       <KeyboardAwareScrollView
         enableOnAndroid
@@ -35,7 +35,7 @@ class Login extends PureComponent {
               <Text>Login</Text>
             </Button>
 
-            <Button onPress={() => Actions.SignUp()}>
+            <Button onPress={() => navigation.navigate('SignUp')}>
               <Text>Sign up</Text>
             </Button>
 
@@ -47,29 +47,15 @@ class Login extends PureComponent {
   }
 }
 
-Login.propTypes = {
+LoginComponent.propTypes = {
   submit: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
-const mapStateToProps = createStructuredSelector({
-
-});
-
-const mapDispatchToProps = dispatch => ({
-  onGetUserGraphQLClick: () => {
-    dispatch(getUserSaga());
-  },
-});
-
-const LoginForm = reduxForm({
+const LoginScreen = reduxForm({
   form: 'login',
   onSubmit: ({ email, password }, dispatch) => dispatch(loginSaga(email, password)),
-})(Login);
+})(LoginComponent);
 
-const LoginRedux = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(LoginForm);
-
-export default LoginRedux;
+export default LoginScreen;
 

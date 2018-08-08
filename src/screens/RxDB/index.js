@@ -15,6 +15,10 @@ import { syncSaga } from '../../sagas/sync';
 aigle.mixin(_);
 
 class RxDBComponent extends PureComponent {
+  static navigationOptions = {
+    title: 'RxDB',
+  };
+
   async getUsers() {
     console.log('getUsers');
     const db = await database.getInstance();
@@ -163,10 +167,10 @@ const RxDBForm = reduxForm({
   },
 })(RxDBComponent);
 
-const RxDB = connect(
+const RxDBScreen = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(RxDBForm);
 
-export default RxDB;
+export default RxDBScreen;
 
