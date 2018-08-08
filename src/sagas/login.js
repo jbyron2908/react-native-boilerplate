@@ -1,10 +1,9 @@
-import { Actions } from 'react-native-router-flux';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { persistor } from '../config/reduxStore';
 import loginMutation from '../graphql/mutations/login';
-import localStorage from '../localStorage/localStorage';
+import localStorage from '../localStorage';
 import localStorageKeys from '../localStorage/localStorageKeys';
 import { loginFail, loginSuccess } from '../reducers/auth';
+import NavigatorService from '../navigation/NavigatorService';
 
 // Actions
 const LOGIN = 'saga/auth/LOGIN';
@@ -17,8 +16,7 @@ function* login(action) {
     const { token } = data.login;
     yield call(localStorage.save, localStorageKeys.TOKEN, token);
     yield put(loginSuccess(token));
-    yield persistor.flush();
-    Actions.replace('RxDB');
+    NavigatorService.navigate('Main');
   } catch (error) {
     yield put(loginFail());
   }
