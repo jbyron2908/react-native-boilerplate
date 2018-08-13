@@ -1,7 +1,7 @@
 import { createSwitchNavigator } from 'react-navigation';
-import AuthNavigator from './AuthNavigator';
-import MainNavigator from './MainNavigator';
-import EntryScreen from '../screens/Entry';
+import EntryScreen from '../screens/Entry/EntryScreen';
+import AuthNavigator from './Auth/AuthNavigator';
+import MainNavigator from './Main/MainNavigator';
 
 
 export default createSwitchNavigator({
