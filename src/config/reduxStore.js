@@ -1,14 +1,14 @@
 /* eslint-disable max-len,no-underscore-dangle,no-undef,global-require,global-require */
 import { applyMiddleware, compose, createStore } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import sagas from '../sagas';
+import { createLogicMiddleware } from 'redux-logic';
+import logics from '../logics';
 import reducers from '../reducers';
 
 const configureStore = () => {
-  const sagaMiddleware = createSagaMiddleware();
+  const logicMiddleware = createLogicMiddleware(logics);
 
   const middlewares = [
-    sagaMiddleware,
+    logicMiddleware,
   ];
 
   const enhancers = [
@@ -31,8 +31,6 @@ const configureStore = () => {
     initialState,
     composeEnhancers(...enhancers),
   );
-
-  sagaMiddleware.run(sagas);
 
   return { store };
 };

@@ -10,7 +10,7 @@ import { Field, reduxForm } from 'redux-form';
 import { createStructuredSelector } from 'reselect';
 import InputReduxForm from '../../components/form/InputReduxForm';
 import database from '../../rxdb/database/database';
-import { syncSaga } from '../../sagas/sync';
+import { syncAction } from '../../logics/sync';
 
 aigle.mixin(_);
 
@@ -150,7 +150,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
   onSyncClick: () => {
-    dispatch(syncSaga());
+    dispatch(syncAction());
   },
 });
 

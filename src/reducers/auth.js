@@ -23,20 +23,20 @@ export default function reducer(state = initialState, action) {
 }
 
 // Action Creators
-export function loginSuccess(token) {
+export function loginSuccessAction(token) {
   return {
     type: LOGIN_SUCCESS,
     payload: token,
   };
 }
 
-export function loginFail() {
+export function loginFailAction() {
   return {
     type: LOGIN_FAIL,
   };
 }
 
-export function logout() {
+export function logoutAction() {
   return {
     type: LOGOUT,
   };

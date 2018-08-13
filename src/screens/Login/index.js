@@ -5,7 +5,7 @@ import { Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Field, reduxForm } from 'redux-form';
 import InputReduxForm from '../../components/form/InputReduxForm';
-import { loginSaga } from '../../sagas/login';
+import { loginAction } from '../../logics/login';
 
 class LoginComponent extends PureComponent {
   static navigationOptions = {
@@ -54,7 +54,7 @@ LoginComponent.propTypes = {
 
 const LoginScreen = reduxForm({
   form: 'login',
-  onSubmit: ({ email, password }, dispatch) => dispatch(loginSaga(email, password)),
+  onSubmit: ({ email, password }, dispatch) => dispatch(loginAction(email, password)),
 })(LoginComponent);
 
 export default LoginScreen;
