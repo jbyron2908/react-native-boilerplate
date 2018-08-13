@@ -9,7 +9,7 @@ import localStorageKeys from '../../localStorage/localStorageKeys';
 class ApolloClientWrapper {
   constructor() {
     const httpLink = createHttpLink({
-      uri: 'http://10.0.3.2:4000',
+      uri: 'http://10.0.2.2:4000',
     });
 
     const authLink = setContext(async (_, { headers }) => {
