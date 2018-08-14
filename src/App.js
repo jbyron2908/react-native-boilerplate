@@ -4,6 +4,9 @@ import { Provider } from 'react-redux';
 import { store } from './config/reduxStore';
 import RootNavigator from './navigation/RootNavigator';
 import NavigatorService from './navigation/NavigatorService';
+import debugConfig from './config/debugConfig';
+
+debugConfig();
 
 const setNavigator = (navigatorRef) => {
   NavigatorService.setNavigator(navigatorRef);
