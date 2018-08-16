@@ -3,10 +3,12 @@ import { YellowBox } from 'react-native';
 export default () => {
   if (!__DEV__) return; // eslint-disable-line no-undef
 
-  networkDebug();
+  // networkDebug();
   disableYellowBox();
 };
 
+// Not working with apollo client
+// eslint-disable-next-line
 const networkDebug = () => {
   global.XMLHttpRequest = global.originalXMLHttpRequest ?
     global.originalXMLHttpRequest :
