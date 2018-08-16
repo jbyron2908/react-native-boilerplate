@@ -1,8 +1,8 @@
 import { Container } from 'native-base';
 import React, { PureComponent } from 'react';
-import localStorage from '../../localStorage';
-import localStorageKeys from '../../localStorage/localStorageKeys';
-import database from '../../rxdb/database/database';
+import localStorage from '../../../localStorage';
+import localStorageKeys from '../../../localStorage/localStorageKeys';
+import database from '../../../rxdb/database/database';
 
 class EntryScreen extends PureComponent {
   async componentWillMount() {

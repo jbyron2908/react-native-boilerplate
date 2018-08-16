@@ -9,8 +9,8 @@ import { connect } from 'react-redux';
 import { Field, Form as FinalForm } from 'react-final-form';
 import { createStructuredSelector } from 'reselect';
 import InputForm from '../../components/form/InputForm';
-import { syncAction } from '../../logics/sync';
-import database from '../../rxdb/database/database';
+import { syncAction } from '../../../logics/sync';
+import database from '../../../rxdb/database/database';
 
 aigle.mixin(_);
 
