@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-class LocalStorage {
+class Storage {
   async load(key, defaultValue = null) {
     let result = defaultValue;
     try {
@@ -61,6 +61,6 @@ class LocalStorage {
   }
 }
 
-const localStorage = new LocalStorage();
+const storage = new Storage();
 
-export default localStorage;
+export default storage;

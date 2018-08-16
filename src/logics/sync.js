@@ -2,9 +2,9 @@ import aigle from 'aigle';
 import _ from 'lodash';
 import { createLogic } from 'redux-logic';
 import syncQuery from '../graphql/queries/sync';
-import localStorage from '../localStorage';
-import localStorageKeys from '../localStorage/localStorageKeys';
 import database from '../rxdb/database/database';
+import storage from '../storage/storage';
+import storageKeys from '../storage/storageKeys';
 import { updateStoreAction } from './updateStore';
 
 aigle.mixin(_);
@@ -41,7 +41,7 @@ function getUser(me) {
 }
 
 async function updateUser(user) {
-  await localStorage.saveObject(localStorageKeys.USER, user);
+  await storage.saveObject(storageKeys.USER, user);
 }
 
 async function updateCategories(categories) {

@@ -1,14 +1,14 @@
 import { Container } from 'native-base';
 import React, { PureComponent } from 'react';
-import localStorage from '../../../localStorage';
-import localStorageKeys from '../../../localStorage/localStorageKeys';
 import database from '../../../rxdb/database/database';
+import storage from '../../../storage/storage';
+import storageKeys from '../../../storage/storageKeys';
 
 class EntryScreen extends PureComponent {
   async componentWillMount() {
     database.init();
     const { navigation } = this.props;
-    const token = await localStorage.load(localStorageKeys.TOKEN);
+    const token = await storage.load(storageKeys.TOKEN);
     if (token) {
       navigation.navigate('RxDB');
     } else {

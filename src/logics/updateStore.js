@@ -1,11 +1,11 @@
 import { createLogic } from 'redux-logic';
-import localStorage from '../localStorage';
-import localStorageKeys from '../localStorage/localStorageKeys';
 import { updateAccountsAction } from '../reducers/accounts';
 import { updateCategoriesAction } from '../reducers/categories';
 import { updateTransactionsAction } from '../reducers/transactions';
 import { updateUserAction } from '../reducers/user';
 import database from '../rxdb/database/database';
+import storage from '../storage/storage';
+import storageKeys from '../storage/storageKeys';
 
 // Actions
 const type = 'logic/auth/update_store';
@@ -17,7 +17,7 @@ export default createLogic({
 
   async process({ action }, dispatch, done) { // eslint-disable-line no-unused-vars
     console.log('updateStoreSaga');
-    const user = await localStorage.loadObject(localStorageKeys.USER);
+    const user = await storage.loadObject(storageKeys.USER);
     await dispatch(updateUserAction(user));
 
     const categories = await getCategories();

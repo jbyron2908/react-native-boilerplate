@@ -1,8 +1,8 @@
 import { createLogic } from 'redux-logic';
 import loginMutation from '../graphql/mutations/login';
-import localStorage from '../localStorage';
-import localStorageKeys from '../localStorage/localStorageKeys';
 import { loginFailAction, loginSuccessAction } from '../reducers/auth';
+import storage from '../storage/storage';
+import storageKeys from '../storage/storageKeys';
 import NavigatorService from '../views/navigation/NavigatorService';
 
 // Actions
@@ -20,7 +20,7 @@ export default createLogic({
       const { data } = await loginMutation(email, password);
       console.log(data);
       const { token } = data.login;
-      await localStorage.save(localStorageKeys.TOKEN, token);
+      await storage.save(storageKeys.TOKEN, token);
       await dispatch(loginSuccessAction(token));
       NavigatorService.navigate('Main');
       done();
