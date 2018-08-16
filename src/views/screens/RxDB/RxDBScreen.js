@@ -3,14 +3,14 @@ import _ from 'lodash';
 import { Button, Content, Form, Text, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import { Field, Form as FinalForm } from 'react-final-form';
 import { Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
-import { Field, Form as FinalForm } from 'react-final-form';
 import { createStructuredSelector } from 'reselect';
-import InputForm from '../../components/form/InputForm';
-import { syncAction } from '../../../logics/sync';
+import { syncAction } from '../../../redux/logics/sync';
 import database from '../../../rxdb/database/database';
+import InputForm from '../../components/form/InputForm';
 
 aigle.mixin(_);
 

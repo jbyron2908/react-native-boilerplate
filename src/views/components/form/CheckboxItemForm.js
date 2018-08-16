@@ -5,8 +5,8 @@ import React, { PureComponent } from 'react';
 
 
 class CheckboxItemForm extends PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       selected: false,
     };

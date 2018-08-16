@@ -1,10 +1,10 @@
 import aigle from 'aigle';
 import _ from 'lodash';
 import { createLogic } from 'redux-logic';
-import syncQuery from '../graphql/queries/sync';
-import database from '../rxdb/database/database';
-import storage from '../storage/storage';
-import storageKeys from '../storage/storageKeys';
+import syncQuery from '../../graphql/queries/sync';
+import database from '../../rxdb/database/database';
+import storage from '../../storage/storage';
+import storageKeys from '../../storage/storageKeys';
 import { updateStoreAction } from './updateStore';
 
 aigle.mixin(_);

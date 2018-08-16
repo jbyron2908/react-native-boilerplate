@@ -2,7 +2,7 @@ import { Container, Root } from 'native-base';
 import React from 'react';
 import { Provider } from 'react-redux';
 import debugConfig from './config/debugConfig';
-import { store } from './config/reduxStore';
+import { store } from './redux/config/reduxStore';
 import NavigatorService from './views/navigation/NavigatorService';
 import RootNavigator from './views/navigation/RootNavigator';
 

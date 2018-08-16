@@ -1,5 +1,5 @@
 import { createLogic } from 'redux-logic';
-import meQuery from '../graphql/queries/me';
+import meQuery from '../../graphql/queries/me';
 import { logoutAction } from '../reducers/auth';
 import { getUserComplete } from '../reducers/user';
 

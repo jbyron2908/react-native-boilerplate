@@ -1,11 +1,11 @@
 import { createLogic } from 'redux-logic';
+import database from '../../rxdb/database/database';
+import storage from '../../storage/storage';
+import storageKeys from '../../storage/storageKeys';
 import { updateAccountsAction } from '../reducers/accounts';
 import { updateCategoriesAction } from '../reducers/categories';
 import { updateTransactionsAction } from '../reducers/transactions';
 import { updateUserAction } from '../reducers/user';
-import database from '../rxdb/database/database';
-import storage from '../storage/storage';
-import storageKeys from '../storage/storageKeys';
 
 // Actions
 const type = 'logic/auth/update_store';

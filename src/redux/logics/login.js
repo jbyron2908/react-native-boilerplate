@@ -1,9 +1,9 @@
 import { createLogic } from 'redux-logic';
-import loginMutation from '../graphql/mutations/login';
+import loginMutation from '../../graphql/mutations/login';
+import storage from '../../storage/storage';
+import storageKeys from '../../storage/storageKeys';
+import NavigatorService from '../../views/navigation/NavigatorService';
 import { loginFailAction, loginSuccessAction } from '../reducers/auth';
-import storage from '../storage/storage';
-import storageKeys from '../storage/storageKeys';
-import NavigatorService from '../views/navigation/NavigatorService';
 
 // Actions
 const type = 'logic/auth/LOGIN';

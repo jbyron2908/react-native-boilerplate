@@ -6,8 +6,8 @@ import { Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { loginAction } from '../../../redux/logics/login';
 import InputForm from '../../components/form/InputForm';
-import { loginAction } from '../../../logics/login';
 
 class LoginComponent extends PureComponent {
   static navigationOptions = {
