@@ -1,23 +1,17 @@
-import { Container } from 'native-base';
+import { Container, Button, Text, View } from 'native-base';
 import React, { PureComponent } from 'react';
-import database from '../../../rxdb/database/database';
-import storage from '../../../storage/storage';
-import storageKeys from '../../../storage/storageKeys';
+import NavigatorService from '../../navigation/NavigatorService';
 
 class EntryScreen extends PureComponent {
-  async componentWillMount() {
-    database.init();
-    const { navigation } = this.props;
-    const token = await storage.load(storageKeys.TOKEN);
-    if (token) {
-      navigation.navigate('RxDB');
-    } else {
-      navigation.navigate('Login');
-    }
-  }
-
   render() {
-    return <Container />;
+    return (
+      <Container style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <View>
+          <Button onPress={() => NavigatorService.navigate('I18n')}>
+            <Text>I18n Example</Text>
+          </Button>
+        </View>
+      </Container>);
   }
 }
 

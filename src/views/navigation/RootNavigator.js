@@ -1,17 +1,13 @@
-import { createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 import EntryScreen from '../screens/Entry/EntryScreen';
-import AuthNavigator from './Auth/AuthNavigator';
-import MainNavigator from './Main/MainNavigator';
+import I18nScreen from '../screens/I18n/I18nScreen';
 
 
-export default createSwitchNavigator({
+export default createStackNavigator({
   Entry: {
     screen: EntryScreen,
   },
-  Auth: {
-    screen: AuthNavigator,
-  },
-  Main: {
-    screen: MainNavigator,
+  I18n: {
+    screen: I18nScreen,
   },
 });
