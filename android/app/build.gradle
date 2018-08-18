@@ -94,11 +94,11 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 23
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
-        applicationId "com.myfinance"
+        applicationId "com.reactnativeboilerplate"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
@@ -138,7 +138,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "com.android.support:appcompat-v7:26.0.1"
+    implementation "com.android.support:appcompat-v7:23.0.1"
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }
 
