@@ -10,6 +10,9 @@ class EntryScreen extends PureComponent {
           <Button onPress={() => NavigatorService.navigate('I18n')}>
             <Text>I18n Example</Text>
           </Button>
+          <Button onPress={() => NavigatorService.navigate('Counter')}>
+            <Text>Counter Example</Text>
+          </Button>
         </View>
       </Container>);
   }

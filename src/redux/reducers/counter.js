@@ -19,10 +19,10 @@ export default function reducer(state = initialState, action) {
 }
 
 // Action Creators
-export function increase() {
+export function increaseAction() {
   return { type: INCREASE };
 }
 
-export function decrease() {
+export function decreaseAction() {
   return { type: DECREASE };
 }
