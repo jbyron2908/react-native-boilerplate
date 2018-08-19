@@ -3,6 +3,7 @@ import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
 import config from './config';
+import authInterceptor from './authInterceptor';
 
 
 class ApolloClientWrapper {
@@ -12,6 +13,7 @@ class ApolloClientWrapper {
     });
 
     const link = ApolloLink.from([
+      authInterceptor,
       httpLink,
     ]);
 
