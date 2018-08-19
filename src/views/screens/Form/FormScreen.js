@@ -7,7 +7,7 @@ import InputForm from '../../components/form/InputForm';
 
 class FormScreen extends PureComponent {
   static navigationOptions = {
-    title: 'Login',
+    title: 'Form',
   };
 
   showToast(name, nickname) {

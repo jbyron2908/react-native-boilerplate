@@ -7,9 +7,12 @@ import { decreaseAction, increaseAction } from '../../../redux/reducers/counter'
 import { getSelectCounter } from '../../../redux/selectors/counter';
 
 class CounterComponent extends PureComponent {
+  static navigationOptions = {
+    title: 'Counter',
+  };
+
   render() {
     const { counter, onIncreaseClick, onDecreaseClick } = this.props;
-
 
     return (
       <Container style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
