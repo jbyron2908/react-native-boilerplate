@@ -21,8 +21,8 @@ export default createLogic({
       console.log(data);
       const { token } = data.login;
       await storage.save(storageKeys.TOKEN, token);
-      await dispatch(loginSuccessAction(token));
-      NavigatorService.navigate('Main');
+      await dispatch(loginSuccessAction());
+      NavigatorService.navigate('Graphql');
       done();
     } catch (error) {
       await dispatch(loginFailAction());
