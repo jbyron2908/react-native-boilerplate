@@ -1,88 +1,27 @@
-import aigle from 'aigle';
-import _ from 'lodash';
-import { Button, Content, Form, Text, View } from 'native-base';
+import { Button, Content, Text, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { Field, Form as FinalForm } from 'react-final-form';
 import { Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { removeAllAction } from '../../../redux/logics/removeAll';
 import { syncAction } from '../../../redux/logics/sync';
+import { accountSelector } from '../../../redux/selectors/accounts';
 import database from '../../../rxdb/database/database';
-import InputForm from '../../components/form/InputForm';
 
-aigle.mixin(_);
 
 class GraphqlComponent extends PureComponent {
   static navigationOptions = {
     title: 'Graphql',
   };
 
-  async getUsers() {
-    console.log('getUsers');
-    const db = await database.getInstance();
-    const userArray = await db.users.find().exec();
-    console.log(userArray);
-  }
-
-  async removeUsers() {
-    console.log('removeUsers');
-    const db = await database.getInstance();
-    const userArray = await db.users.find().exec();
-    await aigle.forEach(userArray, async (user) => {
-      await user.remove();
-    });
-  }
-
-  async logRxDB() {
-    console.log('logRxDB');
-    const db = await database.getInstance();
-
-    console.log('users');
-    const userArray = await db.users.find().exec();
-    console.log(userArray);
-
-    console.log('categories');
-    const categoriesArray = await db.categories.find().exec();
-    console.log(categoriesArray);
-
-    console.log('accounts');
-    const accountsArray = await db.accounts.find().exec();
-    console.log(accountsArray);
-
-    console.log('transactions');
-    const transactionsArray = await db.transactions.find().exec();
-    console.log(transactionsArray);
-  }
-
-  async removeRxDBDocs() {
-    console.log('removeRxDBDocs');
-    const db = await database.getInstance();
-
-    const userArray = await db.users.find().exec();
-    await aigle.forEach(userArray, async (user) => {
-      await user.remove();
-    });
-
-    const categoryArray = await db.categories.find().exec();
-    await aigle.forEach(categoryArray, async (category) => {
-      await category.remove();
-    });
-
-    const accountArray = await db.accounts.find().exec();
-    await aigle.forEach(accountArray, async (account) => {
-      await account.remove();
-    });
-
-    const transactionArray = await db.transactions.find().exec();
-    await aigle.forEach(transactionArray, async (transaction) => {
-      await transaction.remove();
-    });
+  componentWillMount = async () => {
+    await database.init();
   }
 
   render() {
-    const { onSyncClick } = this.props;
+    const { onSyncClick, onRemoveAllClick } = this.props;
     return (
       <KeyboardAwareScrollView
         enableOnAndroid
@@ -92,62 +31,17 @@ class GraphqlComponent extends PureComponent {
         extraScrollHeight={Platform.select({ android: 10 })}
       >
         <Content>
-
-          <FinalForm
-            onSubmit={async ({ name }) => {
-              try {
-                const db = await database.getInstance();
-                await db.users.insert({ name, email: `${name}@symbio.com` });
-              } catch (error) {
-                console.log('insert fail');
-                console.log(error);
-              }
-            }}
-            render={({ handleSubmit }) => (
-              <View>
-                <Form>
-                  <Field name="name" component={InputForm} label="Name" />
-                  <Field name="email" component={InputForm} label="Email" />
-                </Form>
-
-                <View style={{ marginTop: 10 }} flexDirection="row" justifyContent="center" >
-
-                  <Button style={{ marginRight: 25 }} onPress={() => handleSubmit()}>
-                    <Text>Create User</Text>
-                  </Button>
-
-                  <Button onPress={async () => { await this.getUsers(); }}>
-                    <Text>Get Users</Text>
-                  </Button>
-
-                </View>
-              </View>
-          )}
-          />
-          <View flexDirection="row" justifyContent="center">
-            <Button onPress={async () => { await this.removeUsers(); }}>
-              <Text>Remove Users</Text>
-            </Button>
-          </View>
-
           <View style={{ marginTop: 10 }} flexDirection="row" justifyContent="center" >
 
             <Button style={{ marginRight: 25 }} onPress={() => onSyncClick()}>
               <Text>Sync</Text>
             </Button>
 
-            <Button onPress={async () => { await this.logRxDB(); }}>
-              <Text>Log RxDB</Text>
+            <Button onPress={async () => { await onRemoveAllClick(); }}>
+              <Text>Remove all</Text>
             </Button>
 
           </View>
-
-          <View flexDirection="row" justifyContent="center">
-            <Button onPress={async () => { await this.removeRxDBDocs(); }}>
-              <Text>Remove RxDB docs</Text>
-            </Button>
-          </View>
-
         </Content>
       </KeyboardAwareScrollView>
     );
@@ -156,21 +50,26 @@ class GraphqlComponent extends PureComponent {
 
 GraphqlComponent.propTypes = {
   onSyncClick: PropTypes.func.isRequired,
+  onRemoveAllClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
+  accounts: accountSelector,
 });
 
 const mapDispatchToProps = dispatch => ({
   onSyncClick: () => {
     dispatch(syncAction());
   },
+  onRemoveAllClick: () => {
+    dispatch(removeAllAction());
+  },
 });
 
-const RxDBScreen = connect(
+const GraphqlScreen = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(GraphqlComponent);
 
-export default RxDBScreen;
+export default GraphqlScreen;
 
