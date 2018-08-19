@@ -1,5 +1,6 @@
 import RxDB from 'rxdb';
 import collections from '../collections/index';
+import config from './config';
 
 RxDB.plugin(require('pouchdb-adapter-asyncstorage'));
 
@@ -7,9 +8,9 @@ class Database {
   async init() {
     try {
       this.db = await RxDB.create({
-        name: 'myfinancedb',
+        name: config.dbName,
+        password: config.dbPassword,
         adapter: 'asyncstorage',
-        password: 'myFinanceDBPassword',
       });
       await collections.forEach(async (collection) => {
         await this.db.collection(collection);
