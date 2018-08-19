@@ -3,12 +3,10 @@ import { NavigationActions } from 'react-navigation';
 let navigator;
 
 function setNavigator(navigatorRef) {
-  console.log('setNavigator');
   navigator = navigatorRef;
 }
 
 function navigate(routeName, params) {
-  console.log('navigate');
   navigator.dispatch(NavigationActions.navigate({
     routeName,
     params,
