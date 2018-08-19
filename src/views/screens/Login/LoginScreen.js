@@ -7,12 +7,20 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { loginAction } from '../../../redux/logics/login';
+import { getSelectLogged } from '../../../redux/selectors/auth';
 import InputForm from '../../components/form/InputForm';
 
 class LoginComponent extends PureComponent {
   static navigationOptions = {
     title: 'Login',
   };
+
+  componentWillMount = () => {
+    const { logged, navigation } = this.props;
+    if (logged) {
+      navigation.replace('Graphql');
+    }
+  }
 
   render() {
     const { onLoginClick, navigation } = this.props;
@@ -59,10 +67,12 @@ class LoginComponent extends PureComponent {
 
 LoginComponent.propTypes = {
   onLoginClick: PropTypes.func.isRequired,
+  logged: PropTypes.bool.isRequired,
   navigation: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 const mapStateToProps = createStructuredSelector({
+  logged: getSelectLogged,
 });
 
 const mapDispatchToProps = dispatch => ({

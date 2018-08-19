@@ -6,27 +6,26 @@ const LOGOUT = 'reducer/auth/LOGOUT';
 
 // Reducer
 const initialState = {
-  token: '',
+  logged: false,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      return { ...state, token: action.payload };
+      return { ...state, logged: true };
     case LOGIN_FAIL:
-      return { ...state, token: '' };
+      return { ...state, logged: false };
     case LOGOUT:
-      return { ...state, token: '' };
+      return { ...state, logged: false };
     default:
       return state;
   }
 }
 
 // Action Creators
-export function loginSuccessAction(token) {
+export function loginSuccessAction() {
   return {
     type: LOGIN_SUCCESS,
-    payload: token,
   };
 }
 
