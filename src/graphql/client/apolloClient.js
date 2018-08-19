@@ -1,31 +1,17 @@
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
-import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
-import storage from '../../storage/storage';
-import storageKeys from '../../storage/storageKeys';
+import config from './config';
 
 
 class ApolloClientWrapper {
   constructor() {
     const httpLink = createHttpLink({
-      uri: 'http://10.0.2.2:4000',
-    });
-
-    const authLink = setContext(async (_, { headers }) => {
-      const token = await storage.load(storageKeys.TOKEN);
-
-      return {
-        headers: {
-          ...headers,
-          authorization: token ? `Bearer ${token}` : '',
-        },
-      };
+      uri: config.baseUrl,
     });
 
     const link = ApolloLink.from([
-      authLink,
       httpLink,
     ]);
 
