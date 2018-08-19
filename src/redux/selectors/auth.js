@@ -2,12 +2,12 @@ import { createSelector } from 'reselect';
 
 const authState = state => state.auth;
 
-const getSelectLogged = createSelector(
+const loggedSelector = createSelector(
   authState,
   state => state.logged,
 );
 
 export {
   authState,
-  getSelectLogged,
+  loggedSelector,
 };

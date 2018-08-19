@@ -7,7 +7,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { loginAction } from '../../../redux/logics/login';
-import { getSelectLogged } from '../../../redux/selectors/auth';
+import { loggedSelector } from '../../../redux/selectors/auth';
 import InputForm from '../../components/form/InputForm';
 
 class LoginComponent extends PureComponent {
@@ -72,7 +72,7 @@ LoginComponent.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  logged: getSelectLogged,
+  logged: loggedSelector,
 });
 
 const mapDispatchToProps = dispatch => ({

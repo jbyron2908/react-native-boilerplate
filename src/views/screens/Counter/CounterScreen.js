@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { decreaseAction, increaseAction } from '../../../redux/reducers/counter';
-import { getSelectCounter } from '../../../redux/selectors/counter';
+import { counterSelector } from '../../../redux/selectors/counter';
 
 class CounterComponent extends PureComponent {
   static navigationOptions = {
@@ -36,7 +36,7 @@ CounterComponent.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  counter: getSelectCounter,
+  counter: counterSelector,
 });
 
 const mapDispatchToProps = dispatch => ({
