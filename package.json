@@ -40,7 +40,7 @@
     "graphql-tag": "^2.9.2",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
-    "native-base": "^2.5.2",
+    "native-base": "^2.7.2",
     "pouchdb-adapter-asyncstorage": "^6.4.1",
     "prop-types": "^15.6.2",
     "react": "16.3.1",
