@@ -1,7 +1,8 @@
 import { createStackNavigator } from 'react-navigation';
-import EntryScreen from '../screens/Entry/EntryScreen';
-import I18nScreen from '../screens/I18n/I18nScreen';
 import CounterScreen from '../screens/Counter/CounterScreen';
+import EntryScreen from '../screens/Entry/EntryScreen';
+import FormScreen from '../screens/Form/FormScreen';
+import I18nScreen from '../screens/I18n/I18nScreen';
 
 
 export default createStackNavigator({
@@ -13,5 +14,8 @@ export default createStackNavigator({
   },
   Counter: {
     screen: CounterScreen,
+  },
+  Form: {
+    screen: FormScreen,
   },
 });
