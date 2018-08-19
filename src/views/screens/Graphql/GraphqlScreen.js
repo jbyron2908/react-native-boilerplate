@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { removeAllAction } from '../../../redux/logics/removeAll';
 import { syncAction } from '../../../redux/logics/sync';
+import { updateStoreAction } from '../../../redux/logics/updateStore';
 import { accountSelector } from '../../../redux/selectors/accounts';
-import database from '../../../rxdb/database/database';
 
 
 class GraphqlComponent extends PureComponent {
@@ -17,7 +17,7 @@ class GraphqlComponent extends PureComponent {
   };
 
   componentWillMount = async () => {
-    await database.init();
+    await this.props.updateStore();
   }
 
   render() {
@@ -49,6 +49,7 @@ class GraphqlComponent extends PureComponent {
 }
 
 GraphqlComponent.propTypes = {
+  updateStore: PropTypes.func.isRequired,
   onSyncClick: PropTypes.func.isRequired,
   onRemoveAllClick: PropTypes.func.isRequired,
 };
@@ -58,6 +59,9 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateStore: () => {
+    dispatch(updateStoreAction());
+  },
   onSyncClick: () => {
     dispatch(syncAction());
   },

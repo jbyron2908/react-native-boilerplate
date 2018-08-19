@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { loginAction } from '../../../redux/logics/login';
 import { loggedSelector } from '../../../redux/selectors/auth';
+import database from '../../../rxdb/database/database';
 import InputForm from '../../components/form/InputForm';
 
 class LoginComponent extends PureComponent {
@@ -15,7 +16,8 @@ class LoginComponent extends PureComponent {
     title: 'Login',
   };
 
-  componentWillMount = () => {
+  componentWillMount = async () => {
+    await database.init();
     const { logged, navigation } = this.props;
     if (logged) {
       navigation.replace('Graphql');
