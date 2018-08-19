@@ -1,14 +1,15 @@
-import { Button, Content, Text, View } from 'native-base';
+import { Button, Content, ListItem, Text, View } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { Platform } from 'react-native';
+import { FlatList, Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { removeAllAction } from '../../../redux/logics/removeAll';
 import { syncAction } from '../../../redux/logics/sync';
-import { updateStoreAction } from '../../../redux/logics/updateStore';
-import { accountSelector } from '../../../redux/selectors/accounts';
+import { accountsSelector } from '../../../redux/selectors/accounts';
+import { categoriesSelector } from '../../../redux/selectors/categories';
+import { transactionsSelector } from '../../../redux/selectors/transactions';
 
 
 class GraphqlComponent extends PureComponent {
@@ -16,12 +17,11 @@ class GraphqlComponent extends PureComponent {
     title: 'Graphql',
   };
 
-  componentWillMount = async () => {
-    await this.props.updateStore();
-  }
-
   render() {
-    const { onSyncClick, onRemoveAllClick } = this.props;
+    const {
+      categories, accounts, transactions,
+      onSyncClick, onRemoveAllClick,
+    } = this.props;
     return (
       <KeyboardAwareScrollView
         enableOnAndroid
@@ -42,6 +42,42 @@ class GraphqlComponent extends PureComponent {
             </Button>
 
           </View>
+
+          <FlatList
+            keyExtractor={item => item.id}
+            data={accounts}
+            renderItem={
+            ({ item }) => (
+              <ListItem>
+                <Text>{item.name}</Text>
+              </ListItem>
+            )
+          }
+          />
+
+          <FlatList
+            keyExtractor={item => item.id}
+            data={categories}
+            renderItem={
+            ({ item }) => (
+              <ListItem>
+                <Text>{item.name}</Text>
+              </ListItem>
+            )
+          }
+          />
+
+          <FlatList
+            keyExtractor={item => item.id}
+            data={transactions}
+            renderItem={
+            ({ item }) => (
+              <ListItem>
+                <Text>{item.description}</Text>
+              </ListItem>
+            )
+          }
+          />
         </Content>
       </KeyboardAwareScrollView>
     );
@@ -49,19 +85,20 @@ class GraphqlComponent extends PureComponent {
 }
 
 GraphqlComponent.propTypes = {
-  updateStore: PropTypes.func.isRequired,
   onSyncClick: PropTypes.func.isRequired,
   onRemoveAllClick: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired, // eslint-disable-line 
+  accounts: PropTypes.array.isRequired, // eslint-disable-line 
+  transactions: PropTypes.array.isRequired, // eslint-disable-line 
 };
 
 const mapStateToProps = createStructuredSelector({
-  accounts: accountSelector,
+  categories: categoriesSelector,
+  accounts: accountsSelector,
+  transactions: transactionsSelector,
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateStore: () => {
-    dispatch(updateStoreAction());
-  },
   onSyncClick: () => {
     dispatch(syncAction());
   },
