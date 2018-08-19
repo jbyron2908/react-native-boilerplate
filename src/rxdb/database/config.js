@@ -1,5 +1,5 @@
 
 export default {
-  dbName: 'reactNativeBoilerplate',
+  dbName: 'reactnativeboilerplate',
   dbPassword: 'reactNativeBoilerplate123',
 };
